@@ -9,7 +9,7 @@ using WishlistApi.Models;
 
 namespace WishlistApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/WishlistItems")]
     [ApiController]
     public class WishlistItemsController : ControllerBase
     {
@@ -22,16 +22,16 @@ namespace WishlistApi.Controllers
 
         // GET: api/WishlistItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WishlistItem>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<WishlistItem>>> GetWishlistItems()
         {
-            return await _context.TodoItems.ToListAsync();
+            return await _context.WishlistItems.ToListAsync();
         }
 
         // GET: api/WishlistItems/5
         [HttpGet("{id}")]
         public async Task<ActionResult<WishlistItem>> GetWishlistItem(long id)
         {
-            var wishlistItem = await _context.TodoItems.FindAsync(id);
+            var wishlistItem = await _context.WishlistItems.FindAsync(id);
 
             if (wishlistItem == null)
             {
@@ -79,23 +79,23 @@ namespace WishlistApi.Controllers
         [HttpPost]
         public async Task<ActionResult<WishlistItem>> PostWishlistItem(WishlistItem wishlistItem)
         {
-            _context.TodoItems.Add(wishlistItem);
+            _context.WishlistItems.Add(wishlistItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWishlistItem", new { id = wishlistItem.Id }, wishlistItem);
+            return CreatedAtAction(nameof(GetWishlistItem), new { id = wishlistItem.Id }, wishlistItem);
         }
 
         // DELETE: api/WishlistItems/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<WishlistItem>> DeleteWishlistItem(long id)
         {
-            var wishlistItem = await _context.TodoItems.FindAsync(id);
+            var wishlistItem = await _context.WishlistItems.FindAsync(id);
             if (wishlistItem == null)
             {
                 return NotFound();
             }
 
-            _context.TodoItems.Remove(wishlistItem);
+            _context.WishlistItems.Remove(wishlistItem);
             await _context.SaveChangesAsync();
 
             return wishlistItem;
@@ -103,7 +103,7 @@ namespace WishlistApi.Controllers
 
         private bool WishlistItemExists(long id)
         {
-            return _context.TodoItems.Any(e => e.Id == id);
+            return _context.WishlistItems.Any(e => e.Id == id);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace WishlistApi.Models
         {
 
         }
-        public DbSet<WishlistItem> TodoItems { get; set; }
+        public DbSet<WishlistItem> WishlistItems { get; set; }
     }
     
 }
